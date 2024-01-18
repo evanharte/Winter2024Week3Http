@@ -4,22 +4,25 @@ global.DEBUG = true;
 
 const server = http.createServer((request, response) => {
   if (DEBUG) console.log("Request:", request.url);
-  let filename = "index.html";
+  let path = "./views/";
   switch (request.url) {
     case "/":
       if (DEBUG) console.log("Root Route");
-      filename = "index.html";
-      fetchFile(filename);
+      path += "index.html";
+      if (DEBUG) console.log("Path:", path);
+      fetchFile(path);
       break;
     case "/home":
       if (DEBUG) console.log("Home Route");
-      filename = "home.html";
-      fetchFile(filename);
+      path += "home.html";
+      if (DEBUG) console.log("Path:", path);
+      fetchFile(path);
       break;
     case "/about":
       if (DEBUG) console.log("About Route");
-      filename = "about.html";
-      fetchFile(filename);
+      path += "about.html";
+      if (DEBUG) console.log("Path:", path);
+      fetchFile(path);
       break;
     default:
       if (DEBUG) response.writeHead(200, { "Content-Type": "text/html" });
