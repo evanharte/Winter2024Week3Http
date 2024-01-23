@@ -5,6 +5,8 @@ const EventEmitter = require("events");
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
 
+const routes = require("./routes.js");
+
 global.DEBUG = true;
 
 myEmitter.on("route", (url) => {
@@ -30,10 +32,14 @@ const server = http.createServer((request, response) => {
     case "/":
       path += "index.html";
       myEmitter.emit("route", path);
-      if (DEBUG) console.log("Path:", path);
-      fetchFile(path);
+      routes.indexPage(path, response);
       break;
-    case "/home":
+    case "/homepage":
+      path += "home.html";
+      myEmitter.emit("route", path);
+      routes.homePage(path, response);
+      break;
+    case "/about-me":
       response.statusCode = 301; // moved permenently
       response.setHeader("Location", "/");
       response.end();
@@ -45,24 +51,12 @@ const server = http.createServer((request, response) => {
     case "/about":
       path += "about.html";
       myEmitter.emit("route", path);
-      if (DEBUG) console.log("Path:", path);
-      fetchFile(path);
+      routes.aboutPage(path, response);
       break;
     default:
       if (DEBUG) response.writeHead(200, { "Content-Type": "text/html" });
       response.end("404 not found");
       break;
-  }
-  function fetchFile(fileName) {
-    fs.readFile(fileName, (error, content) => {
-      if (error) {
-        response.writeHead(500, { "Content-Type": "text/plain" });
-        response.end("500 Internal Server Error");
-      } else {
-        response.writeHead(200, { "Content-Type": "text/html" });
-        response.end(content, "utf-8");
-      }
-    });
   }
 });
 
