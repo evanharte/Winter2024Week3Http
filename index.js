@@ -12,6 +12,8 @@ global.DEBUG = true;
 myEmitter.on("route", (url) => {
   const d = new Date();
   if (DEBUG) console.log(`Route Event: ${url} at ${d}`);
+
+  // using file system to write to a file 'logs' folder
   if (!fs.existsSync(path.join(__dirname, "logs"))) {
     fs.mkdirSync(path.join(__dirname, "logs"));
   }
