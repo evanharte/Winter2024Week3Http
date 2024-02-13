@@ -9,22 +9,22 @@ const routes = require("./routes.js");
 
 global.DEBUG = true;
 
-// myEmitter.on("route", (url) => {
-//   const d = new Date();
-//   if (DEBUG) console.log(`Route Event: ${url} at ${d}`);
+myEmitter.on("route", (url) => {
+  const d = new Date();
+  if (DEBUG) console.log(`Route Event: ${url} at ${d}`);
 
-//   // using file system to write to a file 'logs' folder
-//   if (!fs.existsSync(path.join(__dirname, "logs"))) {
-//     fs.mkdirSync(path.join(__dirname, "logs"));
-//   }
-//   fs.appendFile(
-//     path.join(__dirname, "logs", "route.log"),
-//     `Route Event on: ${url} at ${d}\n`,
-//     (error) => {
-//       if (error) throw error;
-//     }
-//   );
-// });
+  // using file system to write to a file 'logs' folder
+  if (!fs.existsSync(path.join(__dirname, "logs"))) {
+    fs.mkdirSync(path.join(__dirname, "logs"));
+  }
+  fs.appendFile(
+    path.join(__dirname, "logs", "route.log"),
+    `Route Event on: ${url} at ${d}\n`,
+    (error) => {
+      if (error) throw error;
+    }
+  );
+});
 
 global.DEBUG = true;
 
